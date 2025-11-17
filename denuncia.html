@@ -1,0 +1,406 @@
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enviar Denúncia</title>
+  <link rel="stylesheet" href="css/geral.css">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <style>
+    /* ===== Formulário de Denúncia ===== */
+    main {
+      max-width: 720px;
+      margin: 40px auto;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 26px rgba(6,10,6,0.06);
+      padding: 30px 40px;
+    }
+
+
+    h1 {
+      color: var(--green-deep);
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+
+
+    p.desc {
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+
+    .step.active {
+      color: var(--green);
+    }
+
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      background: #e0e0e0;
+    }
+
+
+    .step.active .step-number {
+      background: var(--green);
+      color: white;
+    }
+
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: var(--green-deep);
+      margin-top: 18px;
+      margin-bottom: 6px;
+    }
+
+
+    select, textarea, input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      outline: none;
+      transition: border 0.2s ease;
+    }
+
+
+    select:focus, textarea:focus, input:focus {
+      border-color: var(--green);
+    }
+
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 28px;
+    }
+
+
+    .btn {
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+
+    .btn:hover {
+      background: #0d6940;
+    }
+
+
+    .hidden {
+      display: none;
+    }
+
+
+    /* Preview da imagem */
+    #preview {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+
+    #preview img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+
+    /* Localização */
+    .localizacao-box {
+      background: #f8f8f8;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+    }
+
+
+    #map {
+      height: 250px;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top bar (mantida igual) -->
+  <header class="topbar" role="banner">
+    <div class="container">
+      <div class="brand-left">
+        <div class="logo-circle">
+            <img src="img/logo.png" alt="Logo Projeto Green Flames" class="logo"></div>
+        <div>
+          <div class="site-title">GREEN FLAMES</div>
+          <div style="font-size:12px;color:#d6efe3;margin-top:3px">PARAÍSO DO TOCANTINS</div>
+        </div>
+      </div>
+
+
+      <nav class="topnav" aria-label="Menu principal">
+        <a href="index.html">HOME</a>
+        <a href="servicos.html">RISCOS DE QUEIMADAS</a>
+        <a href="noticia.html">PREVENÇÃO</a>
+        <a href="contato.html">AJUDA</a>
+        <a href="denuncia.html">DENÚNCIA</a>
+      </nav>
+      <div style="display:none" id="mobileMenuToggle">☰</div>
+    </div>
+  </header>
+
+
+  <main>
+    <h1>Enviar denúncia</h1>
+    <p class="desc">
+      A denúncia é um tipo de manifestação que visa a comunicação de prática de ato ilícito cuja solução dependa da atuação de órgão de controle interno ou externo.
+    </p>
+
+
+    <div class="steps">
+      <div class="step active"><div class="step-number">1</div> Denúncia</div>
+      <div class="step"><div class="step-number">2</div> Identificação</div>
+      <div class="step"><div class="step-number">3</div> Enviar</div>
+    </div>
+
+
+    <form id="form-denuncia">
+      <!-- Etapa 1 -->
+      <div class="etapa" id="etapa1">
+        <label for="assunto">Assunto*</label>
+        <select id="assunto" required>
+          <option value="">Selecione...</option>
+          <option>Queimada irregular</option>
+          <option>Desmatamento</option>
+          <option>Abastecimento</option>
+          <option>Outros</option>
+        </select>
+
+
+        <label for="descricao">Descreva sua manifestação*</label>
+        <textarea id="descricao" placeholder="Digite aqui sua denúncia..." required></textarea>
+
+
+        <!-- Foto obrigatória -->
+        <label for="foto">Anexar foto (obrigatório)*</label>
+        <input type="file" id="foto" accept=".jpg,.jpeg,.png" multiple required>
+        <div id="preview"></div>
+
+
+        <!-- Localização -->
+        <label>Localização*</label>
+        <div class="localizacao-box">
+          <input type="text" id="endereco" placeholder="Digite o local ou endereço" required>
+          <button type="button" class="btn" id="btnLocalizacao" style="margin-top:10px;">📍 Usar minha localização atual</button>
+          <div id="map"></div>
+        </div>
+      </div>
+
+
+      <!-- Etapa 2 -->
+      <div class="etapa hidden" id="etapa2">
+        <label for="identificacao">Forma de Identificação</label>
+        <select id="identificacao" onchange="mostrarCampo()" required>
+          <option value="anonimo">Anônimo</option>
+          <option value="cpf">CPF</option>
+          <option value="cnpj">CNPJ</option>
+          <option value="rg">RG</option>
+        </select>
+
+
+        <div id="campoDocumento" class="hidden">
+          <label for="documento">Número do Documento*</label>
+          <input type="text" id="documento" placeholder="Digite o número do documento">
+        </div>
+      </div>
+
+
+      <!-- Etapa 3 -->
+      <div class="etapa hidden" id="etapa3">
+        <h3>Confirme suas informações</h3>
+        <p><strong>Assunto:</strong> <span id="conf-assunto"></span></p>
+        <p><strong>Descrição:</strong> <span id="conf-descricao"></span></p>
+        <p><strong>Identificação:</strong> <span id="conf-identificacao"></span></p>
+        <p><strong>Localização:</strong> <span id="conf-localizacao"></span></p>
+      </div>
+
+
+      <div class="buttons">
+        <button type="button" class="btn btn-ghost" id="voltar" disabled>← Voltar</button>
+        <button type="button" class="btn" id="continuar">Continuar →</button>
+      </div>
+    </form>
+  </main>
+
+
+  <!-- Rodapé original -->
+  <footer>
+    <div class="container footer">
+      <p>© 2025 Chamas Verdes. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const etapas = document.querySelectorAll('.etapa');
+    const steps = document.querySelectorAll('.step');
+    const btnContinuar = document.getElementById('continuar');
+    const btnVoltar = document.getElementById('voltar');
+    const inputFoto = document.getElementById('foto');
+    let etapaAtual = 0;
+    let mapa, marcador;
+
+
+    // Inicia mapa
+    mapa = L.map('map').setView([-10.175, -48.883], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap'
+    }).addTo(mapa);
+
+
+    mapa.on('click', function(e) {
+      const { lat, lng } = e.latlng;
+      if (marcador) marcador.remove();
+      marcador = L.marker([lat, lng]).addTo(mapa);
+      document.getElementById('endereco').value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+    });
+
+
+    document.getElementById('btnLocalizacao').addEventListener('click', () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          mapa.setView([lat, lng], 15);
+          if (marcador) marcador.remove();
+          marcador = L.marker([lat, lng]).addTo(mapa);
+          document.getElementById('endereco').value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+        }, () => {
+          alert('Não foi possível obter sua localização.');
+        });
+      } else {
+        alert('Seu navegador não suporta geolocalização.');
+      }
+    });
+
+
+    inputFoto.addEventListener('change', () => {
+      const preview = document.getElementById('preview');
+      preview.innerHTML = '';
+      for (const file of inputFoto.files) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        preview.appendChild(img);
+      }
+    });
+
+
+    btnContinuar.addEventListener('click', () => {
+      if (etapaAtual === 0) {
+        const assunto = document.getElementById('assunto').value;
+        const descricao = document.getElementById('descricao').value;
+        const fotos = document.getElementById('foto').files;
+        const endereco = document.getElementById('endereco').value;
+
+
+        if (!assunto || !descricao || fotos.length === 0 || !endereco) {
+          alert('Por favor, preencha todos os campos, anexe uma foto e adicione a localização.');
+          return;
+        }
+      }
+
+
+      if (etapaAtual < etapas.length - 1) {
+        etapas[etapaAtual].classList.add('hidden');
+        steps[etapaAtual].classList.remove('active');
+        etapaAtual++;
+        etapas[etapaAtual].classList.remove('hidden');
+        steps[etapaAtual].classList.add('active');
+        btnVoltar.disabled = etapaAtual === 0;
+
+
+        if (etapaAtual === etapas.length - 1) {
+          btnContinuar.textContent = 'Enviar →';
+          preencherConfirmacao();
+        } else {
+          btnContinuar.textContent = 'Continuar →';
+        }
+      } else {
+        alert('Denúncia enviada com sucesso!');
+        document.getElementById('form-denuncia').reset();
+        document.getElementById('preview').innerHTML = '';
+        window.location.reload();
+      }
+    });
+
+
+    btnVoltar.addEventListener('click', () => {
+      etapas[etapaAtual].classList.add('hidden');
+      steps[etapaAtual].classList.remove('active');
+      etapaAtual--;
+      etapas[etapaAtual].classList.remove('hidden');
+      steps[etapaAtual].classList.add('active');
+      btnVoltar.disabled = etapaAtual === 0;
+      btnContinuar.textContent = 'Continuar →';
+    });
+
+
+    function mostrarCampo() {
+      const select = document.getElementById('identificacao');
+      const campo = document.getElementById('campoDocumento');
+      campo.classList.toggle('hidden', select.value === 'anonimo');
+    }
+
+
+    function preencherConfirmacao() {
+      document.getElementById('conf-assunto').textContent = document.getElementById('assunto').value;
+      document.getElementById('conf-descricao').textContent = document.getElementById('descricao').value;
+      document.getElementById('conf-identificacao').textContent = document.getElementById('identificacao').value;
+      document.getElementById('conf-localizacao').textContent = document.getElementById('endereco').value;
+    }
+  </script>
+</body>
+</html>
+
+
+
+
