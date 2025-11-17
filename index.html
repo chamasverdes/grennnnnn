@@ -1,56 +1,283 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajuda - Projeto</title>
-    <link rel="stylesheet" href="css/geral.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chamas Verdes</title>
+  <link href="" rel="stylesheet">
+  <link rel="stylesheet" href="css/geral.css">
 </head>
 <body>
 
 
-    <header class="header">
-        <div class="header-left">
-           
-                <div class="logo-placeholder">
-                    <span class="logo-text-small">PROJETO</span>
-                </div>
-                <span class="ajuda-text">AJUDA</span>
+
+
+
+
+
+
+  <!-- Top bar -->
+  <header class="topbar" role="banner">
+    <div class="container">
+      <div class="brand-left">
+        <div class="logo-circle" aria-hidden>CB</div>
+        <div>
+          <div class="site-title">GREEN FLAMES</div>
+          <div style="font-size:12px;color:#d6efe3;margin-top:3px">PARAÍSO DO TOCANTINS</div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+      <nav class="topnav" aria-label="Menu principal">
+        <a href="servicos.html">RISCOS DE QUEIMADAS</a>
+        <a href="noticias.html">PREVENÇÃO</a>
+        <a href="contato.html">AJUDA</a>
+        <a href="denuncia.html">DENÚNCIA</a>
+        <a href="entrar.html">ENTRAR</a>
+      </nav>
+      <div style="display:none" id="mobileMenuToggle">☰</div>
+    </div>
+  </header>
+
+
+
+
+
+
+
+
+  <!-- Hero Section -->
+<div class="hero-wrap" id="top">
+  <article class="hero-card" aria-labelledby="hero-title" style="max-width: 1000px; margin: auto;">
+    <div class="hero-media" id="heroMedia" style="
+      background-image: url('img/bombeiros.jpeg');
+      max-width: 100%; /* antes era 820px */
+      width: 1000%;
+      margin: 0 auto;
+      background: #e00808;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(12,40,20,0.06);
+      display: flex;
+      overflow: hidden;
+      align-items: stretch;
+      position: relative;
+    "></div>
+    <div class="hero-content" style="text-align: center; margin-top: 20px;">
+      <h2 class="hero-title" id="hero-title">FAÇA SUA DENÚNCIA AQUI</h2>
+      <p class="hero-excerpt">2ª Companhia Independente de Bombeiros Militar</p>
+      <div class="hero-meta" style="display: flex; justify-content: center; align-items: center; gap: 15px;">
+        <div class="tag">Denunciar</div>
+        <div style="color:var(--muted);font-size:13px">24/01/2025</div>
+        <div class="hero-cta">
+          <a class="btn" href="denuncia.html">Denunciar</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+
+<!-- Services -->
+<section id="servicos" class="services" aria-labelledby="servicos-title">
+  <a href="riscos.html" class="service-card" style="text-decoration:none;color:inherit;">
+    <div class="service-icon">🔥</div>
+    <div class="service-title">Riscos de Queimadas</div>
+    <div style="color:var(--muted);margin-top:8px;font-size:13px">Informações e mapas de risco</div>
+  </a>
+
+
+  <a href="ajuda.html" class="service-card" style="text-decoration:none;color:inherit;">
+    <div class="service-icon">📄</div>
+    <div class="service-title">Ajuda</div>
+    <div style="color:var(--muted);margin-top:8px;font-size:13px">Pedidos, protocolos e alvarás</div>
+  </a>
+
+
+  <a href="prevencao.html" class="service-card" style="text-decoration:none;color:inherit;">
+    <div class="service-icon">👨‍🚒</div>
+    <div class="service-title">Prevenção</div>
+    <div style="color:var(--muted);margin-top:8px;font-size:13px">Dicas de segurança</div>
+  </a>
+
+
+  <a href="noticias.html" class="service-card" style="text-decoration:none;color:inherit;">
+    <div class="service-icon">📢</div>
+    <div class="service-title">Últimas Notícias</div>
+    <div style="color:var(--muted);margin-top:8px;font-size:13px">Acompanhe as ações</div>
+  </a>
+</section>
+
+
+
+
+  <section id="noticias" class="news-section" aria-labelledby="noticias-title">
+    <div class="section-header">
+      <h3 class="section-title">ÚLTIMAS NOTÍCIAS</h3>
+      <div class="section-underline" aria-hidden></div>
+    </div>
+    <div class="news-list" id="newsList"></div>
+  </section>
+
+
+
+
+
+
+
+
+  <!-- Footer -->
+  <footer class="footer">
+  <div class="footer-content">
+    <h3>5º Corpo de Bombeiros Militar — Tocantins</h3>
+    <p>R. Bernardino Maciel, 149 - Interlagos, Paraíso do Tocantins - TO, 77600-000</p>
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+  <!-- Floating controls -->
+  <div class="float-controls" aria-hidden>
+    <div class="fc-btn fc-access" title="Acessibilidade" onclick="alert('Opções de acessibilidade (exemplo)')">A</div>
+    <div class="fc-btn fc-top" title="Voltar ao topo" onclick="scrollToTop()">↑</div>
+  </div>
+
+
+
+
+
+
+
+
+  <script>
+    const NEWS = [
+      {
+        title: "Governo do Estado realiza solenidade em comemoração dos 37 anos do Tocantins",
+        date: "03/10/2025",
+        desc: "Cerimônia será realizada na Pedra Fundamental, localizada na Praça dos Girassóis.",
+        thumb: "https://images.unsplash.com/photo-1542332213-35f3b83a9a77?q=80&w=800&auto=format&fit=crop"
+      },
+      {
+        title: "Bombeiros participam do 1º Curso de Resgate Agroindustrial",
+        date: "02/10/2025",
+        desc: "Capacitação reuniu profissionais de diversos estados para treinamentos especializados.",
+        thumb: "https://images.unsplash.com/photo-1526403224741-0f1f03d3a6a6?q=80&w=800&auto=format&fit=crop"
+      },
+      {
+        title: "Corpo de Bombeiros realiza Aula Inaugural do Curso de Habilitação 2025",
+        date: "01/10/2025",
+        desc: "Iniciativa busca formar novos oficiais com foco em segurança pública e prevenção.",
+        thumb: "https://images.unsplash.com/photo-1532009324734-20a7a5813719?q=80&w=800&auto=format&fit=crop"
+      }
+    ];
+
+
+
+
+
+
+
+
+    function buildNews(){
+      const container = document.getElementById('newsList');
+      container.innerHTML = '';
+      NEWS.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'news-item';
+        div.innerHTML = `
+          <div class="news-thumb" style="background-image:url('${item.thumb}')"></div>
+          <div class="news-body">
+            <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
+              <span class="news-tag">ESPECIAL</span>
+              <div style="color:var(--muted);font-size:13px">${item.date}</div>
             </div>
-        </div>
-        <nav class="header-nav">
-            <a href="#">HOME</a>
-            <a href="#">DENUNCIAR</a>
-            <div class="user-icon">👤</div>
-        </nav>
-    </header>
+            <h4 class="news-title">${item.title}</h4>
+            <p class="news-desc">${item.desc}</p>
+          </div>`;
+        container.appendChild(div);
+      });
+    }
+    buildNews();
 
 
-    <main class="main-content">
-       
-        <div class="title-section">
-         
-            <h1 class="help-title">COMO PODEMOS AJUDAR ?</h1>
-           
-        </div>
 
 
-        <div class="search-container">
-            <span class="search-icon">🔍</span>
-            <input type="text" class="search-input" placeholder="Descreva o problema">
-        </div>
 
 
-        <div class="suggestion-box">
-            <strong>Como fazer uma denúncia?</strong>
-        </div>
 
 
-    </main>
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth',block:'start'});
+        }
+      });
+    });
 
 
-    <footer class="footer">
-        </footer>
+
+
+
+
+
+
+    function scrollToTop(){ window.scrollTo({top:0,behavior:'smooth'}) }
+
+
+
+
+
+
+
+
+    (function attachInteractivity(){
+      const newsItems = document.getElementById('newsList');
+      newsItems.addEventListener('click', e => {
+        let el = e.target;
+        while(el && !el.classList.contains('news-item')) el = el.parentElement;
+        if(!el) return;
+        const idx = Array.from(newsItems.children).indexOf(el);
+        if(idx < 0) return;
+        const item = NEWS[idx];
+        document.getElementById('heroMedia').style.backgroundImage = `url('${item.thumb}')`;
+        document.getElementById('hero-title').textContent = item.title;
+        document.querySelector('.hero-excerpt').textContent = item.desc;
+        document.getElementById('top').scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    })();
+
+
+
+
+
+
+
+
+    document.querySelectorAll('.fc-btn').forEach(btn=>{
+      btn.tabIndex = 0;
+      btn.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' ') btn.click();
+      });
+    });
+  </script>
+
+
+
+
+
+
 
 
 </body>
