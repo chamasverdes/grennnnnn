@@ -76,7 +76,7 @@
     "></div>
     <div class="hero-content" style="margin-top: 20px;">
       <h2 class="hero-title" id="hero-title">FAÇA SUA DENÚNCIA AQUI</h2>
-      <p class="hero-excerpt" style="color: #0d4d35 !important;">2ª Companhia Independente de Bombeiros Militar</p>
+      <p class="hero-excerpt" style="color: #0d4d35 !important; text-shadow: none !important;">2ª Companhia Independente de Bombeiros Militar</p>
       <div class="hero-meta" style="display: flex; justify-content: center; align-items: center; gap: 15px;">
         <div class="tag">Denunciar</div>
         <div style="color:var(--muted);font-size:13px">24/01/2025</div>
@@ -129,6 +129,14 @@
     </div>
     <div class="news-list" id="newsList"></div>
   </section>
+
+  <!-- Modal de Detalhes da Notícia -->
+  <div id="newsModal" class="news-modal">
+    <div class="news-modal-content">
+      <span class="news-modal-close">&times;</span>
+      <div id="newsModalBody"></div>
+    </div>
+  </div>
 
 
 
@@ -204,7 +212,7 @@
           <div class="news-thumb" style="background-image:url('${item.thumb}')"></div>
           <div class="news-body">
             <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
-              <span class="news-tag">ESPECIAL</span>
+              <span class="news-tag">NOTÍCIAS</span>
               <div style="color:var(--muted);font-size:13px">${item.date}</div>
             </div>
             <h4 class="news-title">${item.title}</h4>
