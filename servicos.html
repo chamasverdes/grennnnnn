@@ -21,13 +21,15 @@
   <header class="topbar" role="banner">
     <div class="container">
       <div class="brand-left">
-        <div class="logo-circle">
-          <img src="assets/imagem/green flames.png" alt="Green Flames Logo">
-        </div>
-        <div>
-          <div class="site-title">GREEN FLAMES</div>
-          <div style="font-size:12px;color:#d6efe3;margin-top:3px">PARAÍSO DO TOCANTINS</div>
-        </div>
+        <a href="index.html" class="brand-link">
+          <div class="logo-circle">
+            <img src="assets/imagem/green flames.png" alt="Green Flames Logo">
+          </div>
+          <div class="brand-text">
+            <div class="site-title">GREEN FLAMES</div>
+            <div class="site-subtitle">PARAÍSO DO TOCANTINS</div>
+          </div>
+        </a>
       </div>
 
 
@@ -35,17 +37,27 @@
 
 
       <nav class="topnav" aria-label="Menu principal">
-        <a href="index.html">INÍCIO</a>
-        <a href="servicos.html">RISCOS DE QUEIMADAS</a>
-        <a href="noticia.html">PREVENÇÃO</a>
-        <a href="contato.html">AJUDA</a>
-        <a href="denuncia.html">DENÚNCIA</a>
-        <a href="entrar.html" class="btn-entrar"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-dasharray="28" stroke-dashoffset="28" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 21v-1c0 -3.31 2.69 -6 6 -6h4c3.31 0 6 2.69 6 6v1"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 11c-2.21 0 -4 -1.79 -4 -4c0 -2.21 1.79 -4 4 -4c2.21 0 4 1.79 4 4c0 2.21 -1.79 4 -4 4Z"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.4s" dur="0.4s" values="28;0"/></path></g></svg>ENTRAR</a>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+          <i class="fas fa-bars">☰</i>
+        </label>
+        <div class="nav-desktop">
+          <a href="index.html">INÍCIO</a>
+          <a href="servicos.html">RISCOS DE QUEIMADAS</a>
+          <a href="noticia.html">PREVENÇÃO</a>
+          <a href="contato.html">AJUDA</a>
+          <a href="denuncia.html">DENÚNCIA</a>
+          <a href="entrar.html" class="btn-entrar"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-dasharray="28" stroke-dashoffset="28" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 21v-1c0 -3.31 2.69 -6 6 -6h4c3.31 0 6 2.69 6 6v1"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 11c-2.21 0 -4 -1.79 -4 -4c0 -2.21 1.79 -4 4 -4c2.21 0 4 1.79 4 4c0 2.21 -1.79 4 -4 4Z"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.4s" dur="0.4s" values="28;0"/></path></g></svg>ENTRAR</a>
+        </div>
+        <div class="nav-mobile">
+          <a href="index.html">INÍCIO</a>
+          <a href="servicos.html">RISCOS DE QUEIMADAS</a>
+          <a href="noticia.html">PREVENÇÃO</a>
+          <a href="contato.html">AJUDA</a>
+          <a href="denuncia.html">DENÚNCIA</a>
+          <a href="entrar.html">ENTRAR</a>
+        </div>
       </nav>
-      <button type="button" id="mobileMenuToggle" aria-label="Menu mobile">
-        <span class="icon-hamburger">☰</span>
-        <span class="icon-close">✕</span>
-      </button>
     </div>
   </header>
 
@@ -204,64 +216,111 @@
       
     })();
     
-    // Menu Mobile (Hambúrguer)
+    // Menu mobile com checkbox - sem JavaScript necessário
     (function initMobileMenu(){
+      console.log('[Menu Mobile] Inicializando...');
       const toggle = document.getElementById('mobileMenuToggle');
       const nav = document.querySelector('.topnav');
       const overlay = document.createElement('div');
       overlay.className = 'mobile-overlay';
       document.body.appendChild(overlay);
 
-      if(!toggle || !nav) return;
+      if(!toggle || !nav) {
+        console.error('[Menu Mobile] Toggle ou nav não encontrado!', {toggle, nav});
+        return;
+      }
+      
+      console.log('[Menu Mobile] Elementos encontrados:', {toggle, nav, overlay});
 
+      let linkClickHandlers = [];
+      
       function openMenu(){
+        console.log('[Menu Mobile] Abrindo menu...');
         nav.classList.add('mobile-open');
         toggle.classList.add('active');
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
+        
+        // Adicionar listeners nos links para fechar menu e navegar
+        const links = nav.querySelectorAll('a');
+        console.log('[Menu Mobile] Links encontrados:', links.length, links);
+        
+        links.forEach(function(link, index) {
+          const href = link.getAttribute('href');
+          console.log('[Menu Mobile] Link ' + index + ':', href, link);
+          
+          const handler = function(e) {
+            console.log('[Menu Mobile] Link clicado!', href, e);
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            const hrefValue = link.getAttribute('href');
+            console.log('[Menu Mobile] Href do link:', hrefValue);
+            
+            if(hrefValue) {
+              console.log('[Menu Mobile] Fechando menu...');
+              
+              // Navegar imediatamente
+              console.log('[Menu Mobile] Navegando para:', hrefValue);
+              window.location.href = hrefValue;
+              
+              // Fechar menu após navegação (opcional)
+              setTimeout(closeMenu, 50);
+            } else {
+              console.warn('[Menu Mobile] Link sem href!', link);
+            }
+            
+            return false;
+          };
+          
+          linkClickHandlers.push({link: link, handler: handler});
+          link.addEventListener('click', handler, false);
+          console.log('[Menu Mobile] Listener adicionado ao link:', href);
+        });
+        
+        console.log('[Menu Mobile] Total de handlers:', linkClickHandlers.length);
       }
 
       function closeMenu(){
+        console.log('[Menu Mobile] Fechando menu...');
         nav.classList.remove('mobile-open');
         toggle.classList.remove('active');
         overlay.classList.remove('active');
         document.body.style.overflow = '';
+        
+        // Remover listeners dos links
+        console.log('[Menu Mobile] Removendo', linkClickHandlers.length, 'handlers');
+        linkClickHandlers.forEach(function(item, index) {
+          console.log('[Menu Mobile] Removendo handler', index, 'do link:', item.link.getAttribute('href'));
+          item.link.removeEventListener('click', item.handler, false);
+        });
+        linkClickHandlers = [];
+        console.log('[Menu Mobile] Menu fechado');
       }
 
       toggle.addEventListener('click', function(e){
+        console.log('[Menu Mobile] Toggle clicado');
         e.stopPropagation();
         if(nav.classList.contains('mobile-open')){
+          console.log('[Menu Mobile] Menu aberto, fechando...');
           closeMenu();
         } else {
+          console.log('[Menu Mobile] Menu fechado, abrindo...');
           openMenu();
         }
       });
 
       overlay.addEventListener('click', function(e) {
-        e.stopPropagation();
-        closeMenu();
-      });
-
-      // Permitir cliques nos links do menu
-      nav.addEventListener('click', function(e){
-        e.stopPropagation();
-        if(e.target.tagName === 'A' || e.target.closest('a')){
-          const link = e.target.tagName === 'A' ? e.target : e.target.closest('a');
-          // Permitir que o link funcione normalmente
-          setTimeout(function() {
-            closeMenu();
-          }, 100);
+        console.log('[Menu Mobile] Overlay clicado', e.target, e.target === overlay, nav.contains(e.target));
+        // Só fechar se clicou diretamente no overlay, não em elementos do menu
+        if(e.target === overlay && !nav.contains(e.target)){
+          console.log('[Menu Mobile] Clicou diretamente no overlay, fechando...');
+          closeMenu();
+        } else {
+          console.log('[Menu Mobile] Clique no overlay ignorado - clique foi no menu');
         }
       });
-
-      // Prevenir que o overlay bloqueie cliques no menu
-      nav.addEventListener('touchstart', function(e) {
-        e.stopPropagation();
-      }, { passive: true });
-
-      nav.addEventListener('touchend', function(e) {
-        e.stopPropagation();
-      }, { passive: true });
 
       window.addEventListener('resize', function(){
         if(window.innerWidth > 880){
