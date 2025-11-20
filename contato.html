@@ -380,13 +380,31 @@
         }
       });
 
-      overlay.addEventListener('click', closeMenu);
+      overlay.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeMenu();
+      });
 
+      // Permitir cliques nos links do menu
       nav.addEventListener('click', function(e){
-        if(e.target.tagName === 'A'){
-          closeMenu();
+        e.stopPropagation();
+        if(e.target.tagName === 'A' || e.target.closest('a')){
+          const link = e.target.tagName === 'A' ? e.target : e.target.closest('a');
+          // Permitir que o link funcione normalmente
+          setTimeout(function() {
+            closeMenu();
+          }, 100);
         }
       });
+
+      // Prevenir que o overlay bloqueie cliques no menu
+      nav.addEventListener('touchstart', function(e) {
+        e.stopPropagation();
+      }, { passive: true });
+
+      nav.addEventListener('touchend', function(e) {
+        e.stopPropagation();
+      }, { passive: true });
 
       window.addEventListener('resize', function(){
         if(window.innerWidth > 880){

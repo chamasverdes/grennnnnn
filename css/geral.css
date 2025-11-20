@@ -622,6 +622,7 @@
     z-index: 99;
     overflow-y: auto;
     animation: slideIn 0.3s ease;
+    pointer-events: auto;
   }
   .topnav.mobile-open a {
     width: 100%;
@@ -631,6 +632,10 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    pointer-events: auto;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+    touch-action: manipulation;
   }
   .topnav.mobile-open a.btn-entrar {
     margin-top: 10px;
@@ -657,6 +662,8 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 98;
+    pointer-events: auto;
+    touch-action: manipulation;
   }
   .mobile-overlay.active {
     display: block;
