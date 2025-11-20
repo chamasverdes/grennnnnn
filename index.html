@@ -74,9 +74,9 @@
       align-items: stretch;
       position: relative;
     "></div>
-    <div class="hero-content" style="text-align: center; margin-top: 20px;">
+    <div class="hero-content" style="margin-top: 20px;">
       <h2 class="hero-title" id="hero-title">FAÇA SUA DENÚNCIA AQUI</h2>
-      <p class="hero-excerpt">2ª Companhia Independente de Bombeiros Militar</p>
+      <p class="hero-excerpt" style="color: #0d4d35 !important;">2ª Companhia Independente de Bombeiros Militar</p>
       <div class="hero-meta" style="display: flex; justify-content: center; align-items: center; gap: 15px;">
         <div class="tag">Denunciar</div>
         <div style="color:var(--muted);font-size:13px">24/01/2025</div>
@@ -250,6 +250,31 @@
 
     (function attachInteractivity(){
       const newsItems = document.getElementById('newsList');
+      const excerptEl = document.querySelector('.hero-excerpt');
+      const heroContentEl = document.querySelector('.hero-content');
+      
+      function centerExcerptOnDesktop() {
+        if(window.innerWidth > 880) {
+          if(excerptEl) excerptEl.style.textAlign = 'center';
+          if(heroContentEl) {
+            heroContentEl.style.textAlign = 'center';
+            heroContentEl.style.display = 'flex';
+            heroContentEl.style.flexDirection = 'column';
+            heroContentEl.style.alignItems = 'center';
+          }
+        } else {
+          if(excerptEl) excerptEl.style.textAlign = 'left';
+          if(heroContentEl) {
+            heroContentEl.style.textAlign = 'left';
+            heroContentEl.style.display = 'block';
+            heroContentEl.style.alignItems = 'initial';
+          }
+        }
+      }
+      
+      window.addEventListener('resize', centerExcerptOnDesktop);
+      centerExcerptOnDesktop();
+      
       newsItems.addEventListener('click', e => {
         let el = e.target;
         while(el && !el.classList.contains('news-item')) el = el.parentElement;
@@ -259,7 +284,8 @@
         const item = NEWS[idx];
         document.getElementById('heroMedia').style.backgroundImage = `url('${item.thumb}')`;
         document.getElementById('hero-title').textContent = item.title;
-        document.querySelector('.hero-excerpt').textContent = item.desc;
+        excerptEl.textContent = item.desc;
+        centerExcerptOnDesktop();
         document.getElementById('top').scrollIntoView({behavior:'smooth',block:'start'});
       });
     })();

@@ -186,7 +186,42 @@
     margin-bottom: 12px;
   }
   .hero-title { font-size: 28px; margin: 0 0 10px; color: var(--green-deep); }
-  .hero-excerpt { color: #000000; margin: 0 0 14px; font-weight: 600; }
+  .hero-excerpt { 
+    color: #0d4d35; 
+    margin: 0 0 14px; 
+    font-weight: 600; 
+    display: block;
+    text-align: left;
+  }
+  @media(min-width: 881px){
+    .hero-card .hero-content { 
+      text-align: center !important; 
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+    }
+    .hero-card .hero-content .hero-title {
+      text-align: center !important;
+    }
+    .hero-card .hero-content .hero-excerpt { 
+      text-align: center !important; 
+      display: block !important;
+      width: 100% !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+    .hero-card .hero-content .hero-meta {
+      justify-content: center !important;
+    }
+  }
+  @media(max-width: 880px){
+    .hero-content { 
+      text-align: left !important; 
+    }
+    .hero-excerpt { 
+      text-align: left !important; 
+    }
+  }
   .hero-meta { display: flex; align-items: center; gap: 12px; }
   .hero-meta .tag {
     background: #e6f9ee;
@@ -821,12 +856,7 @@
   }
  
  
-  .hero-content {
-    position: relative;
-    color: white;
-    max-width: 700px;
-    z-index: 2;
-  }
+  /* .hero-content styles moved to main definition above to avoid conflicts */
  
  
   .hero-content h1 {
