@@ -1011,28 +1011,99 @@
   /* ===== MAPA ===== */
   .mapa-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 25px;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
   }
- 
-  .mapa {
-    position: relative;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 600px;
-    height: 400px;
-    padding: 15px;
-  }
- 
-  .mapa img {
+
+  /* Mapa Interativo */
+  .mapa-interativo {
     width: 100%;
-    height: 100%;
-    border-radius: 8px;
-    object-fit: cover;
+    height: 600px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(8, 12, 10, 0.12);
+    overflow: hidden;
+    z-index: 1;
   }
- 
+
+  /* Legenda de Riscos */
+  .legenda-riscos {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(8, 12, 10, 0.08);
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .legenda-riscos h3 {
+    margin: 0 0 16px;
+    color: var(--green-deep);
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #07221a;
+  }
+
+  .legenda-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .legenda-cor {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .legenda-cor.risco-alto {
+    background-color: #dc2626;
+  }
+
+  .legenda-cor.risco-medio {
+    background-color: #f59e0b;
+  }
+
+  .legenda-cor.risco-baixo {
+    background-color: #fbbf24;
+  }
+
+  /* Estilos para marcadores customizados */
+  .marcador-risco,
+  .marcador-centro {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Ajustes responsivos */
+  @media(max-width: 880px){
+    .mapa-interativo {
+      height: 500px;
+    }
+    
+    .legenda-riscos {
+      padding: 16px;
+    }
+  }
+
+  @media(max-width: 600px){
+    .mapa-interativo {
+      height: 400px;
+    }
+  }
+
   /* ===== INFO ===== */
   .info {
     position: absolute;

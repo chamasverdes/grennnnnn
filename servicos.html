@@ -12,6 +12,10 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
     rel="stylesheet"
   />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
   <header class="topbar" role="banner">
@@ -54,34 +58,22 @@
 
 
     <div class="mapa-container">
-      <div class="seta">&#10094;</div>
-
-
-      <div class="mapa">
-        <img src="mapa.png" alt="Mapa de riscos de queimadas" />
-
-
-        <div class="info serra">
-          <img src="fogo.png" alt="Ícone fogo" />
-          <span>70%</span>
-          <p>Serra do Estrondo</p>
+      <div class="mapa-interativo" id="mapaRiscos"></div>
+      <div class="legenda-riscos">
+        <h3>Legenda de Riscos</h3>
+        <div class="legenda-item">
+          <span class="legenda-cor risco-alto"></span>
+          <span>Alto Risco (70%+)</span>
         </div>
-
-
-        <div class="info estrada">
-          <img src="fogo.png" alt="Ícone fogo" />
-          <span>60%</span>
-          <p>Estrada para Santaninha</p>
+        <div class="legenda-item">
+          <span class="legenda-cor risco-medio"></span>
+          <span>Médio Risco (60-69%)</span>
         </div>
-
-
-        <div class="info fazendas">
-          <p>Fazendas da Região</p>
+        <div class="legenda-item">
+          <span class="legenda-cor risco-baixo"></span>
+          <span>Baixo Risco (50-59%)</span>
         </div>
       </div>
-
-
-      <div class="seta">&#10095;</div>
     </div>
   </main>
 
@@ -94,6 +86,124 @@
   </footer>
 
   <script>
+    // Inicialização do Mapa Interativo
+    (function initMapaRiscos(){
+      // Coordenadas de Paraíso do Tocantins (centro)
+      const paraisoLat = -10.1750;
+      const paraisoLng = -48.8828;
+      
+      // Locais de risco com coordenadas aproximadas
+      const locaisRisco = [
+        {
+          nome: 'Serra do Estrondo',
+          risco: 70,
+          lat: -10.2400,
+          lng: -48.9200,
+          tipo: 'alto'
+        },
+        {
+          nome: 'Estrada para Santaninha',
+          risco: 60,
+          lat: -10.1500,
+          lng: -48.8500,
+          tipo: 'medio'
+        },
+        {
+          nome: 'Fazendas da Região',
+          risco: 55,
+          lat: -10.2000,
+          lng: -48.9100,
+          tipo: 'baixo'
+        }
+      ];
+      
+      // Criar mapa
+      const mapa = L.map('mapaRiscos').setView([paraisoLat, paraisoLng], 12);
+      
+      // Adicionar camada do mapa (OpenStreetMap)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 18
+      }).addTo(mapa);
+      
+      // Função para obter cor baseada no risco
+      function getCorRisco(risco) {
+        if (risco >= 70) return '#dc2626'; // Vermelho - Alto risco
+        if (risco >= 60) return '#f59e0b'; // Laranja - Médio risco
+        return '#fbbf24'; // Amarelo - Baixo risco
+      }
+      
+      // Função para obter ícone customizado
+      function criarIconeRisco(risco) {
+        const cor = getCorRisco(risco);
+        return L.divIcon({
+          className: 'marcador-risco',
+          html: `
+            <div style="
+              background-color: ${cor};
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              border: 3px solid white;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: bold;
+              color: white;
+              font-size: 14px;
+            ">${risco}%</div>
+          `,
+          iconSize: [40, 40],
+          iconAnchor: [20, 20]
+        });
+      }
+      
+      // Adicionar marcadores para cada local de risco
+      locaisRisco.forEach(local => {
+        const marcador = L.marker([local.lat, local.lng], {
+          icon: criarIconeRisco(local.risco)
+        }).addTo(mapa);
+        
+        marcador.bindPopup(`
+          <div style="text-align: center; padding: 8px;">
+            <h3 style="margin: 0 0 8px; color: #07221a; font-size: 16px; font-weight: 700;">${local.nome}</h3>
+            <p style="margin: 4px 0; font-size: 14px;">
+              <strong style="color: ${getCorRisco(local.risco)};">Risco: ${local.risco}%</strong>
+            </p>
+            <p style="margin: 4px 0; font-size: 12px; color: #6b7280;">
+              Área com probabilidade alta de queimadas
+            </p>
+          </div>
+        `);
+      });
+      
+      // Adicionar marcador central em Paraíso do Tocantins
+      L.marker([paraisoLat, paraisoLng], {
+        icon: L.divIcon({
+          className: 'marcador-centro',
+          html: `
+            <div style="
+              background-color: #0f7a4a;
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+              border: 3px solid white;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            "></div>
+          `,
+          iconSize: [30, 30],
+          iconAnchor: [15, 15]
+        })
+      }).addTo(mapa).bindPopup(`
+        <div style="text-align: center; padding: 8px;">
+          <h3 style="margin: 0 0 4px; color: #07221a; font-size: 16px; font-weight: 700;">Paraíso do Tocantins</h3>
+          <p style="margin: 0; font-size: 12px; color: #6b7280;">Centro de Referência</p>
+        </div>
+      `);
+      
+    })();
+    
     // Menu Mobile (Hambúrguer)
     (function initMobileMenu(){
       const toggle = document.getElementById('mobileMenuToggle');

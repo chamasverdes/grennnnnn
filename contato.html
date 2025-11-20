@@ -41,26 +41,149 @@
     </div>
 
     <div class="search-container">
-      <span class="search-icon">🔍</span>
-      <input type="text" class="search-input" placeholder="Descreva o problema">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+      <input type="text" id="searchInput" class="search-input" placeholder="Descreva o problema ou digite sua dúvida..." autocomplete="off">
+      <svg class="search-spinner" id="searchSpinner" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+        <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+        <path d="M12 2 A10 10 0 0 1 22 12" stroke-linecap="round"></path>
+      </svg>
     </div>
 
-    <section class="suggestions">
-      <div class="suggestion-box">
-        <strong>Como fazer uma denúncia?</strong>
-        <p>Saiba o passo a passo para registrar sua denúncia de forma segura e anônima.</p>
+    <section class="suggestions" id="suggestionsList">
+      <div class="suggestion-box" data-search="denúncia fazer registrar passo a passo anônima segura">
+        <div class="suggestion-header">
+          <strong>Como fazer uma denúncia?</strong>
+          <span class="suggestion-toggle">+</span>
+        </div>
+        <div class="suggestion-content">
+          <p>Saiba o passo a passo para registrar sua denúncia de forma segura e anônima. Acesse a página de denúncia, preencha o formulário com os dados solicitados e envie. Sua identidade será mantida em sigilo.</p>
+        </div>
       </div>
 
-      <div class="suggestion-box">
-        <strong>Posso acompanhar minha denúncia?</strong>
-        <p>Veja como acompanhar o andamento do seu caso e receber atualizações.</p>
+      <div class="suggestion-box" data-search="acompanhar denúncia andamento caso atualizações status">
+        <div class="suggestion-header">
+          <strong>Posso acompanhar minha denúncia?</strong>
+          <span class="suggestion-toggle">+</span>
+        </div>
+        <div class="suggestion-content">
+          <p>Sim! Você pode acompanhar o andamento do seu caso através do número de protocolo fornecido após o registro. Acesse a área de acompanhamento e informe o protocolo para receber atualizações.</p>
+        </div>
       </div>
 
-      <div class="suggestion-box">
-        <strong>Quais tipos de problemas posso relatar?</strong>
-        <p>Entenda o que pode ou não ser denunciado dentro da plataforma.</p>
+      <div class="suggestion-box" data-search="problemas tipos relatar queimadas incêndio fogo">
+        <div class="suggestion-header">
+          <strong>Quais tipos de problemas posso relatar?</strong>
+          <span class="suggestion-toggle">+</span>
+        </div>
+        <div class="suggestion-content">
+          <p>Você pode denunciar focos de queimadas, incêndios florestais, queima de lixo, fogueiras em áreas proibidas, fumaça excessiva e qualquer situação de risco relacionada a fogo na região.</p>
+        </div>
+      </div>
+
+      <div class="suggestion-box" data-search="emergência urgente bombeiros telefone 193 contato">
+        <div class="suggestion-header">
+          <strong>Como entrar em contato em caso de emergência?</strong>
+          <span class="suggestion-toggle">+</span>
+        </div>
+        <div class="suggestion-content">
+          <p>Em caso de emergência, ligue imediatamente para o Corpo de Bombeiros através do 193. Para situações não urgentes, utilize o formulário de contato ou a central de atendimento.</p>
+        </div>
+      </div>
+
+      <div class="suggestion-box" data-search="protocolo número código denúncia">
+        <div class="suggestion-header">
+          <strong>Como obtenho o número de protocolo da minha denúncia?</strong>
+          <span class="suggestion-toggle">+</span>
+        </div>
+        <div class="suggestion-content">
+          <p>O número de protocolo é gerado automaticamente após o envio da sua denúncia e será exibido na tela de confirmação. Você também receberá por e-mail se informar um endereço válido.</p>
+        </div>
+      </div>
+
+      <div class="suggestion-box" data-search="anonimato sigilo privacidade identidade confidencial">
+        <div class="suggestion-header">
+          <strong>Minha denúncia é anônima?</strong>
+          <span class="suggestion-toggle">+</span>
+        </div>
+        <div class="suggestion-content">
+          <p>Sim, você pode optar por fazer denúncias anônimas. Seus dados pessoais serão mantidos em sigilo e não serão compartilhados. Apenas informações essenciais para investigação serão utilizadas.</p>
+        </div>
+      </div>
+
+      <div class="suggestion-box" data-search="prazo tempo resposta atendimento resolução">
+        <div class="suggestion-header">
+          <strong>Qual o prazo para resposta da minha denúncia?</strong>
+          <span class="suggestion-toggle">+</span>
+        </div>
+        <div class="suggestion-content">
+          <p>O prazo de atendimento varia conforme a gravidade da situação. Emergências são atendidas imediatamente. Denúncias normais podem levar de 24 a 48 horas para serem analisadas e encaminhadas.</p>
+        </div>
+      </div>
+
+      <div class="suggestion-box" data-search="prevenção evitar queimadas cuidados dicas">
+        <div class="suggestion-header">
+          <strong>Como posso ajudar na prevenção de queimadas?</strong>
+          <span class="suggestion-toggle">+</span>
+        </div>
+        <div class="suggestion-content">
+          <p>Evite queimar lixo, não jogue bitucas de cigarro, mantenha limpos os terrenos, não faça fogueiras em locais proibidos e denuncie situações de risco. Pequenas ações fazem grande diferença na prevenção.</p>
+        </div>
       </div>
     </section>
+
+    <div id="noResults" class="no-results" style="display: none;">
+      <div class="no-results-content">
+        <svg class="no-results-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+          <line x1="11" y1="8" x2="11" y2="12"></line>
+          <line x1="11" y1="16" x2="11.01" y2="16"></line>
+        </svg>
+        <h3>Nenhum resultado encontrado</h3>
+        <p>Tente usar palavras-chave diferentes ou envie sua pergunta que entraremos em contato.</p>
+        
+        <form id="contactForm" class="contact-form">
+          <div class="form-group">
+            <label for="userName">Nome *</label>
+            <input type="text" id="userName" name="userName" required placeholder="Seu nome completo">
+          </div>
+          
+          <div class="form-group">
+            <label for="userEmail">E-mail *</label>
+            <input type="email" id="userEmail" name="userEmail" required placeholder="seu@email.com">
+          </div>
+          
+          <div class="form-group">
+            <label for="userPhone">Telefone (Opcional)</label>
+            <input type="tel" id="userPhone" name="userPhone" placeholder="(63) 99999-9999">
+          </div>
+          
+          <div class="form-group">
+            <label for="userQuestion">Sua Pergunta *</label>
+            <textarea id="userQuestion" name="userQuestion" rows="4" required placeholder="Descreva sua dúvida ou problema..."></textarea>
+          </div>
+          
+          <button type="submit" class="btn-submit">
+            <span>Enviar Pergunta</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M17 12c-2.76 0-5 2.24-5 5s2.24 5 5 5s5-2.24 5-5s-2.24-5-5-5m1.65 7.35L16.5 17.2V14h1v2.79l1.85 1.85z"/>
+              <path fill="currentColor" d="m11 12l-6-1.5V7.01l8.87 3.74c.94-.47 2-.75 3.13-.75c.1 0 .19.01.28.01L3 4v16l7-2.95V17c0-.8.14-1.56.39-2.28L5 16.99V13.5z"/>
+            </svg>
+          </button>
+        </form>
+        
+        <div id="formSuccess" class="form-success" style="display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+          <p>Pergunta enviada com sucesso! Entraremos em contato em breve.</p>
+        </div>
+      </div>
+    </div>
   </main>
 
   <!-- ====== Rodapé ====== -->
@@ -69,6 +192,161 @@
   </footer>
 
   <script>
+    // Função de Busca
+    (function initSearch(){
+      const searchInput = document.getElementById('searchInput');
+      const suggestionsList = document.getElementById('suggestionsList');
+      const noResults = document.getElementById('noResults');
+      const searchSpinner = document.getElementById('searchSpinner');
+      const searchIcon = document.querySelector('.search-icon');
+      let searchTimeout;
+
+      function showSpinner() {
+        if (searchSpinner && searchIcon) {
+          searchSpinner.style.display = 'block';
+          searchIcon.style.display = 'none';
+        }
+      }
+
+      function hideSpinner() {
+        if (searchSpinner && searchIcon) {
+          searchSpinner.style.display = 'none';
+          searchIcon.style.display = 'block';
+        }
+      }
+
+      function performSearch(term) {
+        if (!searchInput || !suggestionsList || !noResults) return;
+        
+        const searchTerm = term.toLowerCase().trim();
+        const suggestionBoxes = suggestionsList.querySelectorAll('.suggestion-box');
+        let hasResults = false;
+
+        // Mostrar spinner enquanto busca
+        if (searchTerm !== '') {
+          showSpinner();
+        } else {
+          hideSpinner();
+        }
+
+        suggestionBoxes.forEach(box => {
+          const searchData = box.getAttribute('data-search') ? box.getAttribute('data-search').toLowerCase() : '';
+          const title = box.querySelector('strong') ? box.querySelector('strong').textContent.toLowerCase() : '';
+          const description = box.querySelector('.suggestion-content p') ? box.querySelector('.suggestion-content p').textContent.toLowerCase() : '';
+
+          if (searchTerm === '' || 
+              searchData.includes(searchTerm) || 
+              title.includes(searchTerm) || 
+              description.includes(searchTerm)) {
+            box.style.display = 'block';
+            hasResults = true;
+          } else {
+            box.style.display = 'none';
+          }
+        });
+
+        // Mostrar mensagem quando não há resultados
+        if (searchTerm !== '' && !hasResults) {
+          noResults.style.display = 'block';
+          suggestionsList.style.display = 'none';
+        } else {
+          noResults.style.display = 'none';
+          suggestionsList.style.display = 'flex';
+        }
+
+        // Ocultar spinner após um pequeno delay para dar feedback visual
+        if (searchTerm !== '') {
+          clearTimeout(searchTimeout);
+          searchTimeout = setTimeout(function() {
+            hideSpinner();
+          }, 300);
+        } else {
+          hideSpinner();
+        }
+      }
+      
+      // Limpar busca e mostrar todas as sugestões
+      function resetSearch() {
+        if (searchInput) {
+          searchInput.value = '';
+          performSearch('');
+        }
+      }
+
+      // Event listener para busca em tempo real
+      if(searchInput) {
+        searchInput.addEventListener('input', function(e) {
+          performSearch(e.target.value);
+        });
+
+        // Limpar busca ao pressionar ESC
+        searchInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            e.target.value = '';
+            performSearch('');
+            hideSpinner();
+          }
+        });
+      }
+    })();
+
+    // Formulário de Contato
+    (function initContactForm(){
+      const contactForm = document.getElementById('contactForm');
+      const formSuccess = document.getElementById('formSuccess');
+      
+      if(contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const formData = {
+            nome: document.getElementById('userName').value,
+            email: document.getElementById('userEmail').value,
+            telefone: document.getElementById('userPhone').value || '',
+            pergunta: document.getElementById('userQuestion').value
+          };
+          
+          // Simular envio (aqui você pode integrar com backend)
+          console.log('Dados do formulário:', formData);
+          
+          // Aqui você faria a requisição para o servidor
+          // fetch('/api/contato', {
+          //   method: 'POST',
+          //   headers: { 'Content-Type': 'application/json' },
+          //   body: JSON.stringify(formData)
+          // })
+          // .then(response => response.json())
+          // .then(data => {
+          //   if(data.success) {
+          //     showSuccess();
+          //   }
+          // })
+          // .catch(error => {
+          //   console.error('Erro ao enviar:', error);
+          // });
+          
+          // Simular sucesso
+          setTimeout(function() {
+            contactForm.style.display = 'none';
+            if(formSuccess) {
+              formSuccess.style.display = 'flex';
+            }
+            
+            // Limpar formulário
+            contactForm.reset();
+            
+            // Após 5 segundos, resetar e mostrar o formulário novamente
+            setTimeout(function() {
+              if(formSuccess) {
+                formSuccess.style.display = 'none';
+              }
+              contactForm.style.display = 'block';
+            }, 5000);
+          }, 500);
+        });
+      }
+    })();
+
     // Menu Mobile (Hambúrguer)
     (function initMobileMenu(){
       const toggle = document.getElementById('mobileMenuToggle');
@@ -113,6 +391,36 @@
       window.addEventListener('resize', function(){
         if(window.innerWidth > 880){
           closeMenu();
+        }
+      });
+    })();
+
+    // Funcionalidade de Abrir/Fechar (Accordion)
+    (function initAccordion(){
+      const suggestionBoxes = document.querySelectorAll('.suggestion-box');
+      
+      suggestionBoxes.forEach(box => {
+        const header = box.querySelector('.suggestion-header');
+        
+        if(header) {
+          header.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            // Fechar outros boxes (opcional - remove se quiser permitir múltiplos abertos)
+            const isActive = box.classList.contains('active');
+            suggestionBoxes.forEach(otherBox => {
+              if(otherBox !== box) {
+                otherBox.classList.remove('active');
+              }
+            });
+            
+            // Alternar o box clicado
+            if(isActive) {
+              box.classList.remove('active');
+            } else {
+              box.classList.add('active');
+            }
+          });
         }
       });
     })();

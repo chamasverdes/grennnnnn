@@ -255,7 +255,7 @@
     margin: 28px auto;
     padding: 0 20px 18px;
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(3,1fr);
     gap: 18px;
   }
   .service-card {
@@ -668,6 +668,9 @@
   }
   @media(max-width:880px){
     .services { grid-template-columns: repeat(2,1fr); }
+  }
+  @media(max-width:600px){
+    .services { grid-template-columns: 1fr; }
     .topnav { display: none; }
     #mobileMenuToggle { display: block; }
     .hero-media { 
@@ -792,63 +795,322 @@
     align-items: center;
     justify-content: center;
     background: white;
-    border-radius: 10px;
-    padding: 10px 15px;
-    max-width: 500px;
-    margin: 0 auto 40px auto;
+    border-radius: 12px;
+    padding: 12px 20px;
+    max-width: 600px;
+    margin: 30px auto 40px auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
- 
- 
+
+  .search-container:focus-within {
+    border-color: var(--green);
+    box-shadow: 0 6px 16px rgba(15, 122, 74, 0.15);
+  }
+
   .search-icon {
-    font-size: 18px;
-    color: #777;
-    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    color: var(--muted);
+    margin-right: 12px;
+    flex-shrink: 0;
+    stroke: currentColor;
+    transition: opacity 0.2s ease;
   }
- 
- 
+
+  .search-spinner {
+    width: 20px;
+    height: 20px;
+    color: var(--green);
+    margin-right: 12px;
+    flex-shrink: 0;
+    stroke: currentColor;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   .search-input {
     width: 100%;
     border: none;
     outline: none;
     font-size: 16px;
     background: transparent;
+    color: #07221a;
+  }
+
+  .search-input::placeholder {
+    color: var(--muted);
   }
  
  
   /* ===== Sugestões ===== */
   .suggestions {
-    display: grid;
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 900px;
+    margin: 30px auto 0;
+    padding: 0 20px;
   }
- 
- 
+
   .suggestion-box {
     background: white;
     border-radius: 12px;
-    padding: 20px;
-    text-align: left;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-left: 4px solid var(--green);
+    overflow: hidden;
+    cursor: pointer;
   }
- 
- 
+
+  .suggestion-box.active {
+    border-left-color: var(--accent);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .suggestion-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .suggestion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+  }
+
   .suggestion-box strong {
-    color: hsl(146, 100%, 25%);
+    color: var(--green-deep);
     font-size: 18px;
+    display: block;
+    font-weight: 700;
+    flex: 1;
+    margin: 0;
   }
- 
- 
+
+  .suggestion-toggle {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #e8f9ee;
+    color: var(--green);
+    font-size: 20px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+
+  .suggestion-box.active .suggestion-toggle {
+    background: var(--accent);
+    color: var(--green-deep);
+    transform: rotate(45deg);
+  }
+
+  .suggestion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 24px;
+  }
+
+  .suggestion-box.active .suggestion-content {
+    max-height: 500px;
+    padding: 0 24px 20px;
+  }
+
   .suggestion-box p {
     font-size: 15px;
-    color: #555;
-    margin-top: 8px;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.6;
   }
- 
- 
-  .suggestion-box:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
+
+  .no-results {
+    max-width: 700px;
+    margin: 30px auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .no-results-content {
+    padding: 40px 30px;
+    text-align: center;
+  }
+
+  .no-results-icon {
+    width: 64px;
+    height: 64px;
+    color: var(--muted);
+    margin: 0 auto 20px;
+    display: block;
+    opacity: 0.6;
+  }
+
+  .no-results-content h3 {
+    color: var(--green-deep);
+    font-size: 22px;
+    margin: 0 0 12px;
+    font-weight: 700;
+  }
+
+  .no-results-content > p {
+    color: var(--muted);
+    font-size: 16px;
+    margin: 0 0 30px;
+    line-height: 1.6;
+  }
+
+  /* Formulário de Contato */
+  .contact-form {
+    text-align: left;
+    margin-top: 30px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    color: var(--green-deep);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e8f9ee;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #07221a;
+    background: #f7faf9;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #9ca3af;
+    opacity: 0.8;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--green);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(15, 122, 74, 0.1);
+  }
+  
+  .form-group input:invalid:not(:placeholder-shown),
+  .form-group textarea:invalid:not(:placeholder-shown) {
+    border-color: #dc2626;
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(15, 122, 74, 0.2);
+  }
+
+  .btn-submit:hover {
+    background: #0a5f3a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(15, 122, 74, 0.3);
+  }
+
+  .btn-submit:active {
+    transform: translateY(0);
+  }
+
+  .btn-submit svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  
+  .btn-submit span {
+    flex-shrink: 0;
+  }
+
+  .form-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 30px;
+    background: #e8f9ee;
+    border-radius: 12px;
+    border: 2px solid var(--green);
+  }
+
+  .form-success svg {
+    width: 48px;
+    height: 48px;
+    color: var(--green);
+  }
+
+  .form-success p {
+    color: var(--green-deep);
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+  }
+
+  @media(max-width: 600px){
+    .no-results-content {
+      padding: 30px 20px;
+    }
+
+    .no-results-content h3 {
+      font-size: 20px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      font-size: 16px; /* Evita zoom no mobile */
+    }
   }
  
  
@@ -882,9 +1144,7 @@
     }
  
  
-    .suggestion-box {
-      padding: 15px;
-    }
+    /* Estilos de suggestion-box já definidos acima */
   }
  
  
@@ -1470,55 +1730,7 @@
       color: #033d26;
     }
    
-    /* FAQ boxes */
-    .suggestions {
-      width: 200%;
-      max-width: 800px;
-    }
-    .suggestion-box {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      margin: 12px 0;
-      overflow: hidden;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .suggestion-box:hover {
-      transform: scale(1.02);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-    }
-   
-    /* Botão da pergunta */
-    .faq-question {
-      width: 100%;
-      text-align: left;
-      background: none;
-      border: none;
-      padding: 15px 20px;
-      font-size: 16px;
-      font-weight: 600;
-      color: #067a3f;
-      cursor: pointer;
-    }
-   
-    /* Resposta */
-    .faq-answer {
-      display: none;
-      padding: 0 20px 15px;
-      color: #033d26;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-    .faq-answer.show {
-      display: block;
-      animation: fadeIn 0.4s ease;
-    }
-   
-    /* Animação suave */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    /* Estilos de FAQ removidos - agora usando os estilos principais acima */
    
     /* Rodapé fixo apenas nesta página */
     .footer.ajuda {
