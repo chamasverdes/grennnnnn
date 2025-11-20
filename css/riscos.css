@@ -29,35 +29,7 @@
  
  
   /* ===== Top bar ===== */
-  .topbar {
-    background: var(--green-deep);
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 60;
-    box-shadow: 0 2px 8px rgba(3,10,6,0.08);
-  }
-  .topbar .container {
-    max-width: var(--maxw);
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 12px 20px;
-  }
-  .brand-left { display: flex; align-items: center; gap: 14px; }
-  .logo-circle {
-    width: 56px; height: 56px; border-radius: 8px;
-    background: #fff2; display: flex; align-items: center; justify-content: center;
-    font-weight: 700; color: var(--green-deep);
-  }
-  .site-title { font-weight: 700; font-size: 18px; letter-spacing: 0.6px; }
-  .topnav { display: flex; gap: 18px; align-items: center; }
-  .topnav a {
-    color: white; font-weight: 600; padding: 8px 10px; border-radius: 6px;
-  }
-  .topnav a:hover { background: rgba(255,255,255,0.06); }
+  /* Estilos do cabeçalho estão no geral.css (.topbar, .topnav, etc.) */
  
  
   /* ===== Hero ===== */
@@ -1014,44 +986,7 @@
   }
  
   /* ===== CABEÇALHO ===== */
-  header {
-    background-color: #0e3b26;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 50px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  }
- 
-  .logo h1 {
-    font-size: 18px;
-    letter-spacing: 1px;
-  }
- 
-  .logo p {
-    font-size: 12px;
-    color: #d1e7d1;
-  }
- 
-  nav {
-    display: flex;
-    gap: 25px;
-  }
- 
-  nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-    transition: 0.3s;
-  }
- 
-  nav a:hover,
-  nav a.ativo {
-    text-decoration: underline;
-    color: #d1f2c9;
-  }
+  /* Estilos do cabeçalho estão no geral.css (.topbar, .topnav, etc.) */
  
   /* ===== CONTEÚDO ===== */
   main {

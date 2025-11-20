@@ -12,20 +12,25 @@
   <header class="topbar" role="banner">
     <div class="container">
       <div class="brand-left">
-        <div class="logo-circle" aria-hidden>CB</div>
+        <div class="logo-circle">
+          <img src="assets/imagem/green flames.png" alt="Green Flames Logo">
+        </div>
         <div>
           <div class="site-title">GREEN FLAMES</div>
           <div style="font-size:12px;color:#d6efe3;margin-top:3px">PARAÍSO DO TOCANTINS</div>
         </div>
       </div>
       <nav class="topnav" aria-label="Menu principal">
-        <a href="index.html">HOME</a>
+        <a href="index.html">INÍCIO</a>
         <a href="servicos.html">RISCOS DE QUEIMADAS</a>
-        <a href="noticias.html">PREVENÇÃO</a>
+        <a href="noticia.html">PREVENÇÃO</a>
         <a href="denuncia.html">DENÚNCIA</a>
-        <a href="entrar.html">ENTRAR</a>
+        <a href="entrar.html" class="btn-entrar"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-dasharray="28" stroke-dashoffset="28" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 21v-1c0 -3.31 2.69 -6 6 -6h4c3.31 0 6 2.69 6 6v1"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 11c-2.21 0 -4 -1.79 -4 -4c0 -2.21 1.79 -4 4 -4c2.21 0 4 1.79 4 4c0 2.21 -1.79 4 -4 4Z"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.4s" dur="0.4s" values="28;0"/></path></g></svg>ENTRAR</a>
       </nav>
-      <div style="display:none" id="mobileMenuToggle">☰</div>
+      <button type="button" id="mobileMenuToggle" aria-label="Menu mobile">
+        <span class="icon-hamburger">☰</span>
+        <span class="icon-close">✕</span>
+      </button>
     </div>
   </header>
 
@@ -63,5 +68,54 @@
     <p>© 2025 Projeto — Todos os direitos reservados.</p>
   </footer>
 
+  <script>
+    // Menu Mobile (Hambúrguer)
+    (function initMobileMenu(){
+      const toggle = document.getElementById('mobileMenuToggle');
+      const nav = document.querySelector('.topnav');
+      const overlay = document.createElement('div');
+      overlay.className = 'mobile-overlay';
+      document.body.appendChild(overlay);
+
+      if(!toggle || !nav) return;
+
+      function openMenu(){
+        nav.classList.add('mobile-open');
+        toggle.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu(){
+        nav.classList.remove('mobile-open');
+        toggle.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      toggle.addEventListener('click', function(e){
+        e.stopPropagation();
+        if(nav.classList.contains('mobile-open')){
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+
+      overlay.addEventListener('click', closeMenu);
+
+      nav.addEventListener('click', function(e){
+        if(e.target.tagName === 'A'){
+          closeMenu();
+        }
+      });
+
+      window.addEventListener('resize', function(){
+        if(window.innerWidth > 880){
+          closeMenu();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

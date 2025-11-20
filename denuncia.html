@@ -168,7 +168,8 @@
     <div class="container">
       <div class="brand-left">
         <div class="logo-circle">
-            <img src="img/logo.png" alt="Logo Projeto Green Flames" class="logo"></div>
+          <img src="assets/imagem/green flames.png" alt="Green Flames Logo">
+        </div>
         <div>
           <div class="site-title">GREEN FLAMES</div>
           <div style="font-size:12px;color:#d6efe3;margin-top:3px">PARAÍSO DO TOCANTINS</div>
@@ -177,13 +178,16 @@
 
 
       <nav class="topnav" aria-label="Menu principal">
-        <a href="index.html">HOME</a>
+        <a href="index.html">INÍCIO</a>
         <a href="servicos.html">RISCOS DE QUEIMADAS</a>
         <a href="noticia.html">PREVENÇÃO</a>
         <a href="contato.html">AJUDA</a>
         <a href="denuncia.html">DENÚNCIA</a>
       </nav>
-      <div style="display:none" id="mobileMenuToggle">☰</div>
+      <button type="button" id="mobileMenuToggle" aria-label="Menu mobile">
+        <span class="icon-hamburger">☰</span>
+        <span class="icon-close">✕</span>
+      </button>
     </div>
   </header>
 
@@ -397,6 +401,54 @@
       document.getElementById('conf-identificacao').textContent = document.getElementById('identificacao').value;
       document.getElementById('conf-localizacao').textContent = document.getElementById('endereco').value;
     }
+
+    // Menu Mobile (Hambúrguer)
+    (function initMobileMenu(){
+      const toggle = document.getElementById('mobileMenuToggle');
+      const nav = document.querySelector('.topnav');
+      const overlay = document.createElement('div');
+      overlay.className = 'mobile-overlay';
+      document.body.appendChild(overlay);
+
+      if(!toggle || !nav) return;
+
+      function openMenu(){
+        nav.classList.add('mobile-open');
+        toggle.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu(){
+        nav.classList.remove('mobile-open');
+        toggle.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      toggle.addEventListener('click', function(e){
+        e.stopPropagation();
+        if(nav.classList.contains('mobile-open')){
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+
+      overlay.addEventListener('click', closeMenu);
+
+      nav.addEventListener('click', function(e){
+        if(e.target.tagName === 'A'){
+          closeMenu();
+        }
+      });
+
+      window.addEventListener('resize', function(){
+        if(window.innerWidth > 880){
+          closeMenu();
+        }
+      });
+    })();
   </script>
 </body>
 </html>
