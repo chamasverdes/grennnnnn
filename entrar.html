@@ -35,5 +35,99 @@
     </form>
   </div>
 
+  <script>
+    // Verificar se já está logado
+    window.addEventListener('load', function() {
+      const usuarioLogado = localStorage.getItem('usuarioLogado');
+      const sessionToken = sessionStorage.getItem('sessionToken');
+      
+      if (usuarioLogado && sessionToken) {
+        // Se já estiver logado, redirecionar para a página inicial ou página de destino
+        const paginaRedirecionamento = localStorage.getItem('paginaRedirecionamento');
+        if (paginaRedirecionamento) {
+          localStorage.removeItem('paginaRedirecionamento');
+          window.location.href = paginaRedirecionamento;
+        } else {
+          window.location.href = 'index.html';
+        }
+      }
+    });
+
+    // Sistema de login
+    document.querySelector('.formLogin').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const submitBtn = document.querySelector('input[type="submit"]');
+      
+      if (!email || !password) {
+        alert('Por favor, preencha todos os campos.');
+        return;
+      }
+      
+      // Simular processo de login
+      submitBtn.value = 'Entrando...';
+      submitBtn.disabled = true;
+      
+      setTimeout(() => {
+        // Simular validação (em um sistema real, isso seria feito no servidor)
+        if (validarCredenciais(email, password)) {
+          // Login bem-sucedido
+          const sessionToken = gerarToken();
+          const userData = {
+            email: email,
+            nome: extrairNomeDoEmail(email),
+            loginTime: new Date().toISOString()
+          };
+          
+          // Salvar dados de autenticação
+          localStorage.setItem('usuarioLogado', JSON.stringify(userData));
+          sessionStorage.setItem('sessionToken', sessionToken);
+          
+          // Mostrar sucesso
+          submitBtn.value = 'Login realizado!';
+          submitBtn.style.background = '#28a745';
+          
+          // Redirecionar após 1 segundo
+          setTimeout(() => {
+            const paginaRedirecionamento = localStorage.getItem('paginaRedirecionamento');
+            if (paginaRedirecionamento) {
+              localStorage.removeItem('paginaRedirecionamento');
+              window.location.href = paginaRedirecionamento;
+            } else {
+              window.location.href = 'index.html';
+            }
+          }, 1000);
+          
+        } else {
+          // Login falhou
+          alert('E-mail ou senha incorretos. Tente novamente.');
+          submitBtn.value = 'Acessar';
+          submitBtn.disabled = false;
+          submitBtn.style.background = '';
+        }
+      }, 1500);
+    });
+
+    // Função para validar credenciais (simulação)
+    function validarCredenciais(email, password) {
+      // Em um sistema real, isso seria validado no servidor
+      // Por enquanto, vamos aceitar qualquer e-mail válido com senha mínima de 6 caracteres
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email) && password.length >= 6;
+    }
+
+    // Função para gerar token de sessão
+    function gerarToken() {
+      return 'token_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+    }
+
+    // Função para extrair nome do e-mail
+    function extrairNomeDoEmail(email) {
+      return email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1);
+    }
+  </script>
+
 </body>
 </html>
