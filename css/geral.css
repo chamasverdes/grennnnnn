@@ -582,8 +582,8 @@
   footer, .footer {
     background: var(--green-deep);
     color: white;
-    padding: 18px 20px;
-    margin-top: 36px;
+    padding: 40px 20px 20px;
+    margin-top: 60px;
     display: block;
     visibility: visible;
     opacity: 1;
@@ -591,15 +591,103 @@
     z-index: 1;
   }
   
-  .footer .container {
+  .footer-container {
     max-width: var(--maxw);
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    align-items: start;
   }
   
+  .footer-section h4 {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 8px;
+  }
+  
+  .footer-section p, .footer-section li {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 8px 0;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-section a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-section a:hover {
+    color: white;
+    text-decoration: underline;
+  }
+  
+  .footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .footer-contact-item svg {
+    width: 16px;
+    height: 16px;
+    stroke: rgba(255, 255, 255, 0.7);
+    flex-shrink: 0;
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 30px;
+    padding-top: 20px;
+    text-align: center;
+  }
+  
+  .footer-bottom p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    margin: 0;
+  }
+  
+  /* Responsividade do Footer */
+  @media (max-width: 768px) {
+    .footer-container {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      text-align: center;
+    }
+    
+    footer, .footer {
+      padding: 30px 20px 20px;
+    }
+    
+    .footer-section h4 {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .footer-container {
+      gap: 25px;
+    }
+    
+    footer, .footer {
+      padding: 25px 15px 15px;
+    }
+  }
+  
+  /* Compatibilidade com estrutura antiga */
   .footer-content {
     max-width: var(--maxw);
     margin: 0 auto;
