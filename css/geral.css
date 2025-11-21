@@ -637,7 +637,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   
   .footer-contact-item svg {
@@ -647,11 +647,30 @@
     flex-shrink: 0;
   }
   
+  .footer-contact-item p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  
   .footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    margin-top: 30px;
-    padding-top: 20px;
+    margin-top: 15px;
+    padding-top: 15px;
     text-align: center;
+  }
+  
+  /* Rodapé compacto */
+  .footer-compact {
+    padding: 25px 20px 15px;
+  }
+  
+  .footer-compact .footer-section h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  .footer-compact .footer-contact-item {
+    margin-bottom: 6px;
   }
   
   .footer-bottom p {
