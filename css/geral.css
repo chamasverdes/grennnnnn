@@ -648,14 +648,14 @@
   
   /* Ícone hamburger padrão */
   .checkbtn i {
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     display: block;
   }
   
   /* Esconder hamburger quando menu aberto */
   #check:checked ~ .checkbtn i {
     opacity: 0;
-    transform: rotate(90deg);
+    transform: rotate(180deg) scale(0.8);
   }
   
   /* Criar ícone X quando menu aberto */
@@ -664,18 +664,18 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) rotate(-180deg) scale(0.8);
     font-size: 32px;
     color: white;
     opacity: 0;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     pointer-events: none;
   }
   
   #check:checked ~ .checkbtn::after {
     content: '✕';
     opacity: 1;
-    transform: translate(-50%, -50%) rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
   }
   
   /* Menu desktop - visível no desktop */
@@ -699,6 +699,17 @@
   
   .nav-desktop a:hover {
     background: rgba(255,255,255,0.1);
+  }
+  
+  /* Item ativo no menu */
+  .nav-desktop a.active {
+    background: rgba(255,255,255,0.15);
+    border-bottom: 2px solid var(--accent);
+    font-weight: 700;
+  }
+  
+  .nav-desktop a.active:hover {
+    background: rgba(255,255,255,0.2);
   }
   
   .nav-desktop a.btn-entrar {
@@ -741,13 +752,13 @@
   
   /* Menu mobile - escondido por padrão */
   .nav-mobile {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background: var(--green-deep);
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
@@ -755,8 +766,12 @@
     gap: 0;
     z-index: 999;
     overflow-y: auto;
-    transition: all 0.3s ease;
+    
+    /* Animação de entrada */
     transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   
   /* Links do menu mobile */
@@ -768,12 +783,36 @@
     color: white;
     text-decoration: none;
     display: block;
-    transition: background 0.2s ease;
+    transition: all 0.3s ease;
+    transform: translateX(-20px);
+    opacity: 0;
   }
+  
+  /* Animação dos links quando menu abre */
+  #check:checked ~ .nav-mobile a {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  /* Delay escalonado para cada link */
+  #check:checked ~ .nav-mobile a:nth-child(1) { transition-delay: 0.1s; }
+  #check:checked ~ .nav-mobile a:nth-child(2) { transition-delay: 0.15s; }
+  #check:checked ~ .nav-mobile a:nth-child(3) { transition-delay: 0.2s; }
+  #check:checked ~ .nav-mobile a:nth-child(4) { transition-delay: 0.25s; }
+  #check:checked ~ .nav-mobile a:nth-child(5) { transition-delay: 0.3s; }
+  #check:checked ~ .nav-mobile a:nth-child(6) { transition-delay: 0.35s; }
   
   .nav-mobile a:hover,
   .nav-mobile a:active {
     background: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Item ativo no menu mobile */
+  .nav-mobile a.active {
+    background: rgba(255, 255, 255, 0.15);
+    border-left: 4px solid var(--accent);
+    font-weight: 700;
+    padding-left: 16px;
   }
   
   .nav-mobile a:last-child {
@@ -828,8 +867,9 @@
     
     /* Quando checkbox está marcado, mostrar menu mobile */
     #check:checked ~ .nav-mobile {
-      display: flex !important;
-      transform: translateX(0) !important;
+      transform: translateX(0);
+      opacity: 1;
+      visibility: visible;
     }
     
     .topbar .container {
