@@ -1668,8 +1668,42 @@
   .page .btn:hover {
     background: #006e2d;
   }
- 
- 
+
+  .page .btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  /* Estilos para a página de recuperação de senha */
+  .page .form-links {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .page .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    background: #f8f8f8;
+  }
+
+  .page .back-link:hover {
+    color: #008037;
+    border-color: #008037;
+    background: #f0f8f4;
+  }
+
+  .page .back-link svg {
+    flex-shrink: 0;
+  }
+
   @media (max-width: 480px) {
     .page {
       padding: 30px 25px;

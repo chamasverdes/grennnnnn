@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqueceu a Senha - Projeto Green Flames</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/imagem/green flames.png">
+    <link rel="shortcut icon" type="image/png" href="assets/imagem/green flames.png">
+    <link rel="apple-touch-icon" href="assets/imagem/green flames.png">
+    
+    <link rel="stylesheet" href="css/geral.css">
+  </head>
+<body>
+
+  <div class="page">
+    <form method="POST" class="formLogin">
+      <div class="login-header">
+        <img src="assets/imagem/green flames login.png" alt="Logo Projeto Green Flames" class="logo">
+        <h1>Recuperar Senha</h1>
+      </div>
+
+      <p>Digite seu e-mail para receber as instruções de recuperação de senha.</p>
+      
+      <label for="email">E-mail</label>
+      <input id="email" type="email" name="email" placeholder="Digite seu e-mail cadastrado" required autofocus>
+
+      <input type="submit" value="Enviar Instruções" class="btn">
+      
+      <div class="form-links">
+        <a href="entrar.html" class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 19-7-7 7-7"/>
+            <path d="M19 12H5"/>
+          </svg>
+          Voltar ao Login
+        </a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Simular envio de recuperação de senha
+    document.querySelector('.formLogin').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      
+      if (email) {
+        // Simular processo de envio
+        const submitBtn = document.querySelector('input[type="submit"]');
+        const originalText = submitBtn.value;
+        
+        submitBtn.value = 'Enviando...';
+        submitBtn.disabled = true;
+        
+        setTimeout(() => {
+          alert('Instruções de recuperação enviadas para: ' + email + '\n\nVerifique sua caixa de entrada e spam.');
+          
+          // Redirecionar de volta para o login após 2 segundos
+          setTimeout(() => {
+            window.location.href = 'entrar.html';
+          }, 2000);
+        }, 1500);
+      }
+    });
+  </script>
+
+</body>
+</html>
