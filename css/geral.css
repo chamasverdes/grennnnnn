@@ -579,12 +579,18 @@
  
  
   /* ===== Footer ===== */
-  footer {
+  footer, .footer {
     background: var(--green-deep);
     color: white;
     padding: 18px 20px;
     margin-top: 36px;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    position: relative;
+    z-index: 1;
   }
+  
   .footer .container {
     max-width: var(--maxw);
     margin: 0 auto;
@@ -592,6 +598,26 @@
     justify-content: space-between;
     align-items: center;
     gap: 12px;
+  }
+  
+  .footer-content {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .footer-content h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+  }
+  
+  .footer-content p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 1;
+    color: rgba(255, 255, 255, 0.95);
   }
  
  
@@ -1376,12 +1402,27 @@
  
   /* ===== Rodapé ===== */
   .footer {
-    background:#0c4231;
+    background: var(--green-deep);
     color: white;
     text-align: center;
-    padding: 15px 0;
+    padding: 18px 20px;
     font-size: 14px;
-    margin-top: 250px;
+    margin-top: 40px;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .footer p {
+    color: rgba(255, 255, 255, 0.95);
+    margin: 4px 0;
+  }
+  
+  .footer h3 {
+    color: white;
+    font-weight: 600;
   }
  
  
