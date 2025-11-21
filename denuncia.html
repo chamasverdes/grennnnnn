@@ -127,6 +127,26 @@
       background: #0d6940;
     }
 
+    /* Alinhamento de ícones nos botões */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn svg {
+      flex-shrink: 0;
+    }
+
+    /* Botão de localização específico */
+    #btnLocalizacao {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
 
     .hidden {
       display: none;
@@ -256,7 +276,13 @@
         <label>Localização*</label>
         <div class="localizacao-box">
           <input type="text" id="endereco" placeholder="Digite o local ou endereço" required>
-          <button type="button" class="btn" id="btnLocalizacao" style="margin-top:10px;">📍 Usar minha localização atual</button>
+          <button type="button" class="btn" id="btnLocalizacao" style="margin-top:10px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Usar minha localização atual
+          </button>
           <div id="map"></div>
         </div>
       </div>
@@ -291,8 +317,20 @@
 
 
       <div class="buttons">
-        <button type="button" class="btn btn-ghost" id="voltar" disabled>← Voltar</button>
-        <button type="button" class="btn" id="continuar">Continuar →</button>
+        <button type="button" class="btn btn-ghost" id="voltar" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 19-7-7 7-7"/>
+            <path d="M19 12H5"/>
+          </svg>
+          <span>Voltar</span>
+        </button>
+        <button type="button" class="btn" id="continuar">
+          <span>Continuar</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/>
+            <path d="m12 5 7 7-7 7"/>
+          </svg>
+        </button>
       </div>
     </form>
   </main>
@@ -422,10 +460,10 @@
 
 
         if (etapaAtual === etapas.length - 1) {
-          btnContinuar.textContent = 'Enviar →';
+          btnContinuar.innerHTML = `<span>Enviar</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
           preencherConfirmacao();
         } else {
-          btnContinuar.textContent = 'Continuar →';
+          btnContinuar.innerHTML = `<span>Continuar</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
         }
       } else {
         alert('Denúncia enviada com sucesso!');
@@ -443,7 +481,7 @@
       etapas[etapaAtual].classList.remove('hidden');
       steps[etapaAtual].classList.add('active');
       btnVoltar.disabled = etapaAtual === 0;
-      btnContinuar.textContent = 'Continuar →';
+      btnContinuar.innerHTML = `<span>Continuar</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
     });
 
 
